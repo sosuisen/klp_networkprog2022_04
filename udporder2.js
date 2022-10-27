@@ -14,9 +14,15 @@ socket.on('message', msg => {
   if (Object.keys(received).length === max) {
     socket.close();
 
+    let sorted = [];
+    for (let i = 0; i < max; i++) {
+      sorted.push(received[i]);
+    }
     // Object.values() は、数字のキーをもつオブジェクトの場合、
-    // キーの番号順で並んだ値の配列を返す
-    const sorted = Object.values(received);
+    // キーの番号順で並んだ値の配列を返す。
+    // よって、上の for文の代わりに次のようにしても同じ。
+    // const sorted = Object.values(received);
+
     let miss = 0;
     for (let i = 0; i < max; i++) {
       if (sorted[i] !== alphabet[i % 10].toString()) miss++;
